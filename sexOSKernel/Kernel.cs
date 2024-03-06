@@ -7,7 +7,7 @@ namespace sexOSKernel
 {
     public class Kernel : Sys.Kernel
     {
-
+        //imi bag pula in ea de viata
         protected override void BeforeRun()
         {
             Console.WriteLine("sexOS booted successfully. Type a line of text to get it echoed back.");
