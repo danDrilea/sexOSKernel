@@ -16,6 +16,7 @@ namespace sexOSKernel
 
         protected override void Run()
         {
+            Console.Write("MA AUZI SUGI PULA??");
             Console.Write("Input: ");
             var input = Console.ReadLine();
             Console.Write("Text typed: ");
