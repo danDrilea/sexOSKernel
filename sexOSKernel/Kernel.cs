@@ -17,7 +17,7 @@ namespace sexOSKernel
         protected override void Run()
         {
             ///sugi pula comentariu
-            /////hai sa vedem daca INCA MERGE
+            /////hai sa vedem daca INCA MERGE???
             Console.Write("MA AUZI SUGI PULA??");
             Console.Write("Input: ");
             var input = Console.ReadLine();
