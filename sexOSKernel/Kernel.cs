@@ -5,7 +5,7 @@ using System.Drawing;
 using System.Text;
 using Sys = Cosmos.System;
 using sexOSKernel.Commands;
-namespace sexOSKernel//<------ SFARSIT SCOPE KERNEL
+namespace sexOSKernel//<------ INCEPUT SCOPE KERNEL
 {
     ///nu IESITI DIN NAMESPACE CA FACE ASTA URAT
     ///practic ce e in scope-ul lui sexOSKernel il foloseste, daca iesi din scope nu mai recunoaste nimic
