@@ -30,7 +30,6 @@ namespace sexOSKernel//<------ SFARSIT SCOPE KERNEL
             Console.WriteLine(input);
         }
         
-        ///Intro song functions
         private void PlaySong()
         {
             PlayNote(392, 400); // G
