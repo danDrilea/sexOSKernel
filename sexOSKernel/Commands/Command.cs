@@ -8,9 +8,11 @@ namespace sexOSKernel.Commands
         /// Asta e doar un model pentru o comanda, nu are niciun folos decat sa fie mostenita de catre alte comenzi(Help/FuckCommand)
         /// </summary>
         public readonly String name;
-        public Command(string name)
+        public readonly String description;
+        public Command(string name, string description)
         {
             this.name = name;
+            this.description = description;
         }
 
         public virtual String Execute(String[] args)

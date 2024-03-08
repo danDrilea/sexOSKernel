@@ -17,8 +17,8 @@ namespace sexOSKernel.Commands
             this.commands = new List<Command>();//in paranteza se afla numarul de comenzi, pot sa l las asa
             //dar e good practice sa scriu cate sunt ca sa 
             //adaug la lista de comenzi comenzi xd
-            this.commands.Add(new Help("help"));
-            this.commands.Add(new FuckCommand("fuck"));
+            this.commands.Add(new Help("help","Lists commands and their descriptions", this.commands));
+            this.commands.Add(new FuckCommand("fuck", "Plays a song"));
         }
 
         public String processInput(String input)
