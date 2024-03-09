@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Drawing;
 using System.Text;
 using Sys = Cosmos.System;
+using sexOSKernel.UI;
 
 namespace sexOSKernel//<------ SFARSIT SCOPE KERNEL
 {
@@ -11,9 +12,10 @@ namespace sexOSKernel//<------ SFARSIT SCOPE KERNEL
     ///practic ce e in scope-ul lui sexOSKernel il foloseste, daca iesi din scope nu mai recunoaste nimic
     public class Kernel : Sys.Kernel
     {
-        //imi bag pula in ea de viata
+        public static  GUI gui;
+
         protected override void BeforeRun()
-        {
+        {    
             // Beginning of "Never Gonna Give You Up" Chorus
             PlaySong();
             Console.Write("                ___  ____  \r\n ___  _____  __/ _ \\/ ___| \r\n/ __|/ _ \\ \\/ / | | \\___ \\ \r\n\\__ \\  __/>  <| |_| |___) |\r\n|___/\\___/_/\\_\\\\___/|____/ \n");
