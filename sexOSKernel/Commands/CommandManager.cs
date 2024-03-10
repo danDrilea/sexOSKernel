@@ -19,6 +19,7 @@ namespace sexOSKernel.Commands
             //adaug la lista de comenzi comenzi xd
             this.commands.Add(new Help("help","Lists commands and their descriptions", this.commands));
             this.commands.Add(new FuckCommand("fuck", "Plays a song"));
+            this.commands.Add(new ClearScreen("clear", "Clears the screen"));
         }
 
         public String processInput(String input)
@@ -28,7 +29,7 @@ namespace sexOSKernel.Commands
             String label = split[0];
             List<String> args = new List<String>();
             int ctr = 0;//contor
-            Console.WriteLine("Arguments are: \n");
+            Console.WriteLine("Arguments are: ");
             foreach (String s in split)//argumente pt label (comanda arata ceva de genu: comanda(label) argument1 argument2 ...
             {
                 if (ctr != 0)
