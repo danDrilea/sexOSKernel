@@ -20,7 +20,17 @@ namespace sexOSKernel.Commands
             this.commands.Add(new Help("help","Lists commands and their descriptions", this.commands));
             this.commands.Add(new FuckCommand("fuck", "Plays a song"));
             this.commands.Add(new ClearScreen("clear", "Clears the screen"));
-            this.commands.Add(new File("file", "File system: create, delete, createdir, removedir"));
+            this.commands.Add(new File("file", "File System Operations:\n" +
+                          "- create: Create a new file with the specified directory path and name.\n\tUsage: file create DIRECTORY_PATH FILE_NAME.EXTENSION\n" +
+                          "- delete: Delete a file with the specified directory path and name.\n\tUsage: file delete DIRECTORY_PATH\\FILE_NAME\n" +
+                          "- createdir: Create a new directory with the specified directory path.\n\tUsage: file createdir DIRECTORY_PATH\n" +
+                          "- removedir: Remove an existing directory with the specified directory path.\n\tUsage: file removedir DIRECTORY_PATH\n" +
+                          "- writestring: Write a string to a file with the specified file path and name.\n\tUsage: file writestring FILE_PATH\\FILE_NAME STRING\n" +
+                          "- readstring: Read the contents of a file with the specified file path.\n\tUsage: file readstring FILE_PATH\n" +
+                          "- listdir: List directories in the specified path.\n\tUsage: file listdir DIRECTORY_PATH"
+                          ));
+
+
         }
 
         public String processInput(String input)

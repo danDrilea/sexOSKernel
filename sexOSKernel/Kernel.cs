@@ -20,7 +20,6 @@ namespace sexOSKernel//<------ INCEPUT SCOPE KERNEL
             this.vfs = new CosmosVFS();//register vfs
             Sys.FileSystem.VFS.VFSManager.RegisterVFS(this.vfs);
             this.commandManager = new CommandManager();//adauga comenzile ca sa fie recunoscute in scope
-            // Beginning of "Never Gonna Give You Up" Chorus
             Console.Write("                ___  ____  \r\n ___  _____  __/ _ \\/ ___| \r\n/ __|/ _ \\ \\/ / | | \\___ \\ \r\n\\__ \\  __/>  <| |_| |___) |\r\n|___/\\___/_/\\_\\\\___/|____/ \n");
             Console.Write("sexOS successfully booted!\n");
         }

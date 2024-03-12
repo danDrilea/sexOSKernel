@@ -27,7 +27,6 @@ namespace sexOSKernel.Commands
                     catch (Exception ex)
                     {
                         response = ex.ToString();
-                        break;
                     }
 
                     break;
@@ -41,7 +40,6 @@ namespace sexOSKernel.Commands
                     catch (Exception ex)
                     {
                         response = ex.ToString();
-                        break;
                     }
                     break;
                 case "createdir":
@@ -53,7 +51,6 @@ namespace sexOSKernel.Commands
                     catch(Exception ex)
                     {
                         response = ex.ToString();
-                        break;
                     }
                     break;
                 case "removedir":
@@ -65,36 +62,15 @@ namespace sexOSKernel.Commands
                     catch (Exception ex)
                     {
                         response = ex.ToString();
-                        break;
                     }
                     break;
-                case "writestring"://file writestring 0:\Myfile.txt "abcacaca"
+                case "listdir"://Aici trebuie sa listam directoarele
                     try
                     {
-                        FileStream fs = (FileStream)Sys.FileSystem.VFS.VFSManager.GetFile(args[1]).GetFileStream();
-                        if(fs.CanWrite)//can write to the file
+                        var directories = Sys.FileSystem.VFS.VFSManager.GetDirectoryListing(args[1]);
+                        foreach (var dir in directories)
                         {
-                            int ctr = 0;
-                            StringBuilder sb = new StringBuilder();
-                            foreach(String s in args)
-                            {
-                                if (ctr > 1)
-                                    sb.Append(s + ' ');
-                                ++ctr;
-                            }
-                            //need to convert the string to byte sequences
-                            //byte array
-                            String txt = sb.ToString();
-                            Byte[] data = Encoding.ASCII.GetBytes(txt.Substring(0, txt.Length - 1));
-                            fs.Write(data, 0, data.Length);
-                            fs.Close();
-                            response = "Sucessfully wrote to the file!";
-
-                        }
-                        else
-                        {
-                            response = "Unable to write to file, it is not open for writing.";
-                            break;
+                            Console.WriteLine(dir.mName);
                         }
                     }
                     catch(Exception ex)
@@ -103,6 +79,44 @@ namespace sexOSKernel.Commands
                         break;
                     }
                     break;
+                case "writestring": //file writestring 0:\Myfile.txt "abcacaca"
+                    try
+                    {
+                        FileStream fs = (FileStream)Sys.FileSystem.VFS.VFSManager.GetFile(args[1]).GetFileStream();
+                        if (fs.CanWrite) //can write to the file
+                        {
+                            // Clear the content of the file before writing new content
+                            fs.SetLength(0); // This line flushes the existing content by setting the file length to 0
+
+                            int ctr = 0;
+                            StringBuilder sb = new StringBuilder();
+                            foreach (String s in args)
+                            {
+                                if (ctr > 1)
+                                    sb.Append(s + ' ');
+                                ++ctr;
+                            }
+                            //need to convert the string to byte sequences
+                            //byte array
+                            String txt = sb.ToString();
+                            Byte[] data;
+                            data = Encoding.ASCII.GetBytes(txt.Substring(0, txt.Length - 1));
+                            fs.Write(data, 0, data.Length);
+                            fs.Close();
+                            response = "Successfully wrote to the file!";
+                        }
+                        else
+                        {
+                            response = "Unable to write to file, it is not open for writing.";
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        response = ex.ToString();
+                        break;
+                    }
+                    break;
+
                 case "readstring":
                     try
                     {
@@ -117,6 +131,7 @@ namespace sexOSKernel.Commands
                         {
                             response = "Unable to read from file, not open for reading.";
                             break;
+
                         }
                     }
                     catch(Exception ex)
@@ -125,8 +140,20 @@ namespace sexOSKernel.Commands
                         break;
                     }
                     break;
+                case "":
+                    response = "No arguments given.";
+                    break;
                 default:
-                    response = "What fucking argument did you give(" + args[1] + ")?";
+                    try
+                    {
+                        response = "Invalid input.";
+                    }
+                    catch (Exception ex)
+                    {
+                        response = ex.ToString();
+                        break;
+
+                    }
                     break;
             }
             return response;
