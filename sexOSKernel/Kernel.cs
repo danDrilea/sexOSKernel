@@ -29,23 +29,45 @@ namespace sexOSKernel//<------ INCEPUT SCOPE KERNEL
             Console.Write("                ___  ____  \r\n ___  _____  __/ _ \\/ ___| \r\n/ __|/ _ \\ \\/ / | | \\___ \\ \r\n\\__ \\  __/>  <| |_| |___) |\r\n|___/\\___/_/\\_\\\\___/|____/ \n");
             Console.Write("sexOS successfully booted!\n");
         }
-        
+
         ///Intro song functions
         protected override void Run()
         {
-            //if gui open
-            if(Kernel.gui != null)
+            if (gui != null && !gui.ShouldExitGUI)
             {
-                Kernel.gui.handleGUIInputs();
-                return;
+                gui.handleGUIInputs();
             }
-            //else
+            else if (gui != null && gui.ShouldExitGUI)
+            {
+                // Exit GUI mode
+                ExitGUIMode(); // You need to define this method
+                gui = null; // Reset GUI to null if you're done with it
+            }
+            else
+            {
+                // Handle console input/output as before
+                HandleConsoleInput();
+            }
+        }
+        private void ExitGUIMode()
+        {
+            // Clear the GUI canvas or disable graphics mode as necessary
+            GUI.canvas.Disable(); // This is conceptual; actual method to disable canvas or graphics mode may vary
 
+            // Potentially clear the console and reset any needed console settings
+            Console.Clear();
+            Console.WriteLine("Back to console mode.");
+
+            // Re-enable console input if it was disabled during GUI mode
+        }
+        private void HandleConsoleInput()
+        {
             String input = Console.ReadLine();
             string response = this.commandManager.processInput(input);
             Console.WriteLine(response);
         }
-       
+
+
     }
 
 }///<--- SFARSIT SCOPE KERNEL

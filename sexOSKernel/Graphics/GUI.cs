@@ -12,6 +12,7 @@ namespace sexOSKernel.Graphics
 {
     public class GUI
     {
+        public bool ShouldExitGUI { get; private set; } = false;
         public static Canvas canvas;
         private Pen pen;
 
@@ -48,10 +49,19 @@ namespace sexOSKernel.Graphics
                 // If not clicking, draw the cursor
                 DrawMouseCursor(mousePosition);
             }
-
+            CheckForExit();
             canvas.Display();
         }
-
+        private void CheckForExit()
+        {
+            if (KeyboardManager.KeyAvailable)
+            {
+                if (KeyboardManager.ReadKey().Key == ConsoleKeyEx.Escape)
+                {
+                    ShouldExitGUI = true;
+                }
+            }
+        }
         private Sys.Graphics.Point GetMousePosition()
         {
             return new Sys.Graphics.Point((int)MouseManager.X, (int)MouseManager.Y);
