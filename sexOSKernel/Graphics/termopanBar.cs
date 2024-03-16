@@ -1,8 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cosmos.System.Graphics;
+using System;
 using System.Drawing;
-using Cosmos.System.Graphics;
 
 namespace sexOSKernel.Graphics
 {
@@ -11,13 +9,13 @@ namespace sexOSKernel.Graphics
         private Pen pen;
         private Int32 rows, cols;
 
-        public termopanBar (Canvas canvas)
+        public termopanBar(Canvas canvas)
         {
             this.pen = new Pen(Color.White);
             this.rows = canvas.Mode.Rows;
             this.cols = canvas.Mode.Columns;
 
-            canvas.DrawRectangle(this.pen, 0, this.rows - 100 , this.cols - 2, 99); // taskbar thing
+            canvas.DrawRectangle(this.pen, 0, this.rows - 100, this.cols - 2, 99); // taskbar thing
             canvas.DrawRectangle(this.pen, 0, this.rows - 100, 100, 99); // button
             canvas.DrawLine(this.pen, 25, this.rows - 90, 75, this.rows - 10);// line inside button
         }

@@ -1,87 +1,86 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Cosmos.System;
+using Cosmos.System.FileSystem;
 using Cosmos.System.Graphics;
+using sexOSKernel.Commands;
+using System;
 using System.Drawing;
 using Sys = Cosmos.System;
-using Cosmos.System;
+using Console = System.Console;
+using System.Collections.Generic;
 
 namespace sexOSKernel.Graphics
 {
     public class GUI
     {
-        private Canvas canvas;
+        public static Canvas canvas;
         private Pen pen;
 
-        private List<Tuple<Sys.Graphics.Point, Color>> savedPixels;//we use this to save what is behind the mouse
+        private List<Tuple<Sys.Graphics.Point, Color>> savedPixels; // We use this to save what is behind the mouse
 
-        private MouseState previousMouseState;
-        private termopanBar termopanbar;
-
-        private UInt32 pX, pY; //previous x, previous y
+        private Sys.Graphics.Point lastMousePosition = new Sys.Graphics.Point(-1, -1); // Initialize to an invalid position
+        private Color lastMousePositionColor = Color.White; // The background color
 
         public GUI() //constructor
         {
-            this.canvas = FullScreenCanvas.GetCurrentFullScreenCanvas();
-            this.canvas.Clear(Color.Black); //background GUI color
+            canvas = FullScreenCanvas.GetFullScreenCanvas(new Mode(1024, 768, ColorDepth.ColorDepth32));
+            canvas.Clear(Color.White);
 
-            this.pen = new Pen(Color.White); //foreGround GUI color
-            this.previousMouseState = MouseState.None;
-
-            //initial mouse pos
-            this.pX = 3; 
-            this.pY = 3;
+            this.pen = new Pen(Color.Black);
             this.savedPixels = new List<Tuple<Sys.Graphics.Point, Color>>();
 
-            this.termopanbar = new termopanBar(this.canvas);
-
-            MouseManager.ScreenHeight = (UInt32)this.canvas.Mode.Rows;  //this initializes the mouse manager (weird af) - has to be unsigned
-            MouseManager.ScreenWidth = (UInt32)this.canvas.Mode.Columns;
+            MouseManager.ScreenHeight = 768;
+            MouseManager.ScreenWidth = 1024;
         }
 
         public void handleGUIInputs()
         {
-            //so that we dont update mouse pozition when stationary
-            if (this.pX != MouseManager.X && this.pY != MouseManager.Y)
+            // Basic screen update setup
+            var mousePosition = GetMousePosition();
+
+            // Check if the left mouse button is pressed
+            if (MouseManager.MouseState == MouseState.Left)
             {
-                //if out of bounds -> bad (2px margin limit) sexOS crashes if you tell it to draw out of bounds
-                if (MouseManager.X < 2 || MouseManager.Y < 2 || MouseManager.X > (MouseManager.ScreenWidth - 2) || MouseManager.Y > (MouseManager.ScreenHeight - 2))
-                    return;
-
-                this.pX = MouseManager.X;
-                this.pY = MouseManager.Y;
-
-                //here we have the mouse design -> currently a cross (we could make something cooler)
-                Sys.Graphics.Point[] points = new Sys.Graphics.Point[]
-                {
-                    new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y),
-                    new Sys.Graphics.Point((Int32)MouseManager.X + 1, (Int32)MouseManager.Y),
-                    new Sys.Graphics.Point((Int32)MouseManager.X - 1, (Int32)MouseManager.Y),
-                    new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y + 1),
-                    new Sys.Graphics.Point((Int32)MouseManager.X, (Int32)MouseManager.Y - 1),
-                };
-
-                foreach (Tuple<Sys.Graphics.Point, Color> pixelData in this.savedPixels)
-                    this.canvas.DrawPoint(new Pen(pixelData.Item2), pixelData.Item1); //new pen with old color and position
-
-                this.savedPixels.Clear(); //clear the saved pixels for the new frame
-
-                foreach (Sys.Graphics.Point p in points)
-                {
-                    //save the pixel position and color
-                    this.savedPixels.Add(new Tuple<Sys.Graphics.Point, Color>(p, this.canvas.GetPointColor(p.X, p.Y)));
-                    this.canvas.DrawPoint(this.pen, p);
-                }
+                // Draw something at the mouse position on click
+                DrawOnClick(mousePosition);
+            }
+            else
+            {
+                // If not clicking, draw the cursor
+                DrawMouseCursor(mousePosition);
             }
 
-            //event listener for single click 
-            if(MouseManager.MouseState == MouseState.Left && this.previousMouseState != MouseState.Left)
+            canvas.Display();
+        }
+
+        private Sys.Graphics.Point GetMousePosition()
+        {
+            return new Sys.Graphics.Point((int)MouseManager.X, (int)MouseManager.Y);
+        }
+
+        private void DrawOnClick(Sys.Graphics.Point position)
+        {
+            // Implement drawing logic on mouse click, if needed
+            // For example:
+            Pen pen = new Pen(Color.Red);
+            canvas.DrawFilledRectangle(pen, position.X, position.Y, 10, 10);
+        }
+
+        private void DrawMouseCursor(Sys.Graphics.Point position)
+        {
+            // Check if the mouse has moved
+            if (lastMousePosition.X != -1 && lastMousePosition.Y != -1)
             {
-                System.Console.Beep(); //beeeeeeep
+                // Repaint the last mouse position with the background color
+                Pen backgroundPen = new Pen(lastMousePositionColor);
+                canvas.DrawFilledRectangle(backgroundPen, lastMousePosition.X, lastMousePosition.Y, 5, 5);
             }
 
-            this.previousMouseState = MouseManager.MouseState;
+            // Update the last mouse position
+            lastMousePosition = position;
 
+            // Draw the cursor at the new position
+            Pen pen = new Pen(Color.Black);
+            canvas.DrawFilledRectangle(pen, position.X, position.Y, 5, 5);
         }
     }
 }
