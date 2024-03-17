@@ -19,6 +19,7 @@ namespace sexOSKernel.Commands
             //adaug la lista de comenzi comenzi xd
             this.commands.Add(new Help("help","Lists commands and their descriptions", this.commands));
             this.commands.Add(new FuckCommand("fuck", "Plays a song"));
+            this.commands.Add(new LaunchGUi("gui", "Porneste interfata grafica"));
         }
 
         public String processInput(String input)
@@ -46,7 +47,7 @@ namespace sexOSKernel.Commands
             {
                 if (cmd.name == label)
                 {
-                    return cmd.Execute(args.ToArray());//aici se afla argumentele
+                    return cmd.execute(args.ToArray());//aici se afla argumentele
                 }
             }
             return "Your command \"" + label + "\"does not exist!";

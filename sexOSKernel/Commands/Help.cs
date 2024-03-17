@@ -10,7 +10,7 @@ namespace sexOSKernel.Commands
         {
             this.commands = commands;
         }
-        public override string Execute(String[] args)
+        public override string execute(String[] args)
         {
             string commandList = "Available commands:";
 

@@ -9,13 +9,13 @@ namespace sexOSKernel.Commands
         /// </summary>
         public readonly String name;
         public readonly String description;
-        public Command(string name, string description)
+        public Command(String name, String description)
         {
             this.name = name;
             this.description = description;
         }
 
-        public virtual String Execute(String[] args)
+        public virtual String execute(String[] args)
         {
             ///De aceea nu returneaza nimic aici
             ///Metoda e facuta ca sa primeasca override(virtual)
