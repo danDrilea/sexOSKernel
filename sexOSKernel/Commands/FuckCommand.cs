@@ -5,7 +5,7 @@ namespace sexOSKernel.Commands
     public class FuckCommand : Command
     {
         public FuckCommand(String name, String description) : base(name, description) { }
-        public override string Execute(string[] args)
+        public override string execute(string[] args)
         {
             PlaySong();
             return @"

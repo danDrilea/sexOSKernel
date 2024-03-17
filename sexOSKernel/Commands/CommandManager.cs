@@ -53,7 +53,7 @@ namespace sexOSKernel.Commands
             {
                 if (cmd.name == label)
                 {
-                    return cmd.Execute(args.ToArray());//aici se afla argumentele
+                    return cmd.execute(args.ToArray());//aici se afla argumentele
                 }
             }
             return "Your command \"" + label + "\"does not exist!";

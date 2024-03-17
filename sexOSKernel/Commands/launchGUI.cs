@@ -9,7 +9,7 @@ namespace sexOSKernel.Commands
     {
         public launchGUI(String name, String description) : base(name, description) { }
 
-        public override string Execute(string[] args)
+        public override string execute(string[] args)
         {
             if (Kernel.gui != null)
                 return "GUI already launched!";

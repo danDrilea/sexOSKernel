@@ -10,7 +10,7 @@ namespace sexOSKernel.Commands
     public class File : Command
     {
         public File(String name, string description) : base(name, description) { }  
-        public override string Execute(string[] args)
+        public override string execute(string[] args)
         {
             //file create Myfile.txt
             string response = "";
