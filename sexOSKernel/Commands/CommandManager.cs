@@ -19,7 +19,17 @@ namespace sexOSKernel.Commands
             //adaug la lista de comenzi comenzi xd
             this.commands.Add(new Help("help","Lists commands and their descriptions", this.commands));
             this.commands.Add(new FuckCommand("fuck", "Plays a song"));
-            this.commands.Add(new LaunchGUi("gui", "Porneste interfata grafica"));
+            this.commands.Add(new ClearScreen("clear", "Clears the screen"));
+            this.commands.Add(new File("file", "File System Operations:\n" +
+                          "- create: Create a new file with the specified directory path and name.\n\tUsage: file create DIRECTORY_PATH\\FILE_NAME.EXTENSION\n" +
+                          "- delete: Delete a file with the specified directory path and name.\n\tUsage: file delete DIRECTORY_PATH\\FILE_NAME\n" +
+                          "- createdir: Create a new directory with the specified directory path.\n\tUsage: file createdir DIRECTORY_PATH\n" +
+                          "- removedir: Remove an existing directory with the specified directory path.\n\tUsage: file removedir DIRECTORY_PATH\n" +
+                          "- writestring: Write a string to a file with the specified file path and name.\n\tUsage: file writestring FILE_PATH\\FILE_NAME STRING\n" +
+                          "- readstring: Read the contents of a file with the specified file path.\n\tUsage: file readstring FILE_PATH\n" +
+                          "- listdir: List directories in the specified path.\n\tUsage: file listdir DIRECTORY_PATH"
+                          ));
+            this.commands.Add(new launchGUI("gui", "Launches the GUI!"));
         }
 
         public String processInput(String input)
@@ -29,15 +39,11 @@ namespace sexOSKernel.Commands
             String label = split[0];
             List<String> args = new List<String>();
             int ctr = 0;//contor
-            Console.WriteLine("Arguments are: \n");
             foreach (String s in split)//argumente pt label (comanda arata ceva de genu: comanda(label) argument1 argument2 ...
             {
                 if (ctr != 0)
                 {
                     args.Add(s);
-
-                    Console.WriteLine(args[args.Count - 1]);
-                    ///Console.WriteLine(args[ctr]);
                 }
                 ++ctr;
             }
